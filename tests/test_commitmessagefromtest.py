@@ -5,7 +5,7 @@ from commitmessagefromtest import main
 def test_shows_usage_when_no_default_message_provided():
     runner = CliRunner()
     result = runner.invoke(main, [])
-    assert result.exit_code == 1
+    assert result.exit_code != 0
     assert result.output.startswith('Usage:')
 
 # - prints on stdout default message when no test found in git diff
