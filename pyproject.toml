@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "commit-message-from-test"
+name = "cmft"
 version = "0.1.0"
 description = ""
 license = "MIT"

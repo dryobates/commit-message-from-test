@@ -1,5 +1,6 @@
 from click.testing import CliRunner
-from commitmessagefromtest import main
+
+from cmft.cli import main
 
 
 def test_shows_usage_when_no_default_message_provided():
