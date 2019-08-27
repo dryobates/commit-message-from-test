@@ -5,8 +5,8 @@ from click.testing import CliRunner
 
 from cmft.cli import main
 
-default_message = "some message"
-test_file_name = "test_example.py"
+DEFAULT_MESSAGE = "some message"
+TEST_FILE_NAME = "test_example.py"
 
 
 def test_shows_usage_when_no_default_message_provided(runner):
@@ -19,23 +19,23 @@ def test_shows_usage_when_no_default_message_provided(runner):
 def test_prints_on_stdout_default_message_when_could_not_run_git_diff(runner):
     with runner.isolated_filesystem():
 
-        result = runner.invoke(main, [default_message])
+        result = runner.invoke(main, [DEFAULT_MESSAGE])
 
         assert result.exit_code == 0
-        assert default_message == result.output
+        assert DEFAULT_MESSAGE == result.output
 
 
 def test_prints_on_stdout_default_message_when_no_tests_found_in_git_diff(runner):
     with runner.isolated_filesystem():
         run("git init .", shell=True)
-        with open(test_file_name, "w") as test_file:
+        with open(TEST_FILE_NAME, "w") as test_file:
             test_file.write("#")
-        run(f"git add {test_file_name}", shell=True)
+        run(f"git add {TEST_FILE_NAME}", shell=True)
 
-        result = runner.invoke(main, [default_message])
+        result = runner.invoke(main, [DEFAULT_MESSAGE])
 
         assert result.exit_code == 0
-        assert default_message == result.output
+        assert DEFAULT_MESSAGE == result.output
 
 
 def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_diff(
@@ -43,11 +43,11 @@ def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_
 ):
     with runner.isolated_filesystem():
         run("git init .", shell=True)
-        with open(test_file_name, "w") as test_file:
+        with open(TEST_FILE_NAME, "w") as test_file:
             test_file.write("def test_name")
-        run(f"git add {test_file_name}", shell=True)
+        run(f"git add {TEST_FILE_NAME}", shell=True)
 
-        result = runner.invoke(main, [default_message])
+        result = runner.invoke(main, [DEFAULT_MESSAGE])
 
         assert result.exit_code == 0
         assert "name" == result.output
