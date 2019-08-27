@@ -27,9 +27,10 @@ def test_prints_on_stdout_default_message_when_no_tests_found_in_git_diff(runner
     default_message = "some message"
     with runner.isolated_filesystem():
         run("git init .", shell=True)
-        with open("test_example.py", "w") as test_file:
+        test_file_name = "test_example.py"
+        with open(test_file_name, "w") as test_file:
             test_file.write("#")
-        run("git add test_example.py", shell=True)
+        run(f"git add {test_file_name}", shell=True)
 
         result = runner.invoke(main, [default_message])
 
@@ -43,9 +44,10 @@ def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_
     default_message = "some message"
     with runner.isolated_filesystem():
         run("git init .", shell=True)
-        with open("test_example.py", "w") as test_file:
+        test_file_name = "test_example.py"
+        with open(test_file_name, "w") as test_file:
             test_file.write("def test_name")
-        run("git add test_example.py", shell=True)
+        run(f"git add {test_file_name}", shell=True)
 
         result = runner.invoke(main, [default_message])
 
@@ -60,6 +62,8 @@ def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_
 # - test is commented
 # - test contains "test" in name
 # - test contains "def" in name
+# - snake case function name
+# - camel case function name
 
 
 @pytest.fixture
