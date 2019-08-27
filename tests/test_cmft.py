@@ -41,7 +41,7 @@ def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_
     with runner.isolated_filesystem():
         run("git init .", shell=True)
         with open("test_example.py", "w") as test_file:
-            test_file.write("+def test_name")
+            test_file.write("def test_name")
         run("git add test_example.py", shell=True)
 
         result = runner.invoke(main, [default_message])
