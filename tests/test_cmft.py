@@ -10,7 +10,7 @@ def test_shows_usage_when_no_default_message_provided():
     assert result.output.startswith("Usage:")
 
 
-def test_prints_on_stdout_default_message_when_not_in_git_repo():
+def test_prints_on_stdout_default_message_when_could_not_run_git_diff():
     default_message = "some message"
     runner = CliRunner()
     with runner.isolated_filesystem():
@@ -19,7 +19,6 @@ def test_prints_on_stdout_default_message_when_not_in_git_repo():
         assert f"{default_message}\n" == result.output
 
 
-# - prints on stderr error when could not run git diff
 # - prints on stdout default message when no test found in git diff
 # - prints on stdout message based on test name when one test found in git diff
 # - prints on stdout message based on first found test name when many tests found in git diff
