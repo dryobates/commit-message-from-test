@@ -62,6 +62,7 @@ def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_
 # - test contains "def" in name
 # - snake case function name
 # - camel case function name
+# - file tracked and not staged
 
 
 @pytest.fixture
