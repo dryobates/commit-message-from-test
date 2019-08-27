@@ -18,13 +18,12 @@ def main(message):
             encoding="utf8",
         ).stdout
     except CalledProcessError:
-        click.echo(message, nl=False)
+        pass
     else:
         match = TEST_RE.search(output)
         if match:
-            click.echo(match.group(1), nl=False)
-        else:
-            click.echo(message, nl=False)
+            message = match.group(1)
+    click.echo(message, nl=False)
 
 
 if __name__ == "__main__":
