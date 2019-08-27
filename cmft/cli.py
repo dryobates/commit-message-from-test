@@ -12,13 +12,13 @@ def main(message):
     try:
         output = run("git diff --cached", shell=True, check=True, capture_output=True, encoding="utf8").stdout
     except CalledProcessError:
-        click.echo(message)
+        click.echo(message, nl=False)
     else:
         match = TEST_RE.search(output)
         if match:
             click.echo(match.group(1), nl=False)
         else:
-            click.echo(message)
+            click.echo(message, nl=False)
 
 
 if __name__ == "__main__":

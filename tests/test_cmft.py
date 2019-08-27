@@ -20,7 +20,7 @@ def test_prints_on_stdout_default_message_when_could_not_run_git_diff(runner):
         result = runner.invoke(main, [default_message])
 
         assert result.exit_code == 0
-        assert f"{default_message}\n" == result.output
+        assert default_message == result.output
 
 
 def test_prints_on_stdout_default_message_when_no_tests_found_in_git_diff(runner):
@@ -33,7 +33,7 @@ def test_prints_on_stdout_default_message_when_no_tests_found_in_git_diff(runner
         result = runner.invoke(main, [default_message])
 
         assert result.exit_code == 0
-        assert f"{default_message}\n" == result.output
+        assert default_message == result.output
 
 
 def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_diff(runner):
