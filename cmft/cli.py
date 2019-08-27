@@ -10,6 +10,8 @@ def main(message):
         run("git diff", shell=True, check=True)
     except CalledProcessError:
         click.echo(message)
+    else:
+        click.echo(message)
 
 
 if __name__ == "__main__":
