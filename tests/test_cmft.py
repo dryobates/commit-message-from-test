@@ -36,11 +36,6 @@ def test_prints_on_stdout_default_message_when_no_tests_found_in_git_diff(runner
         assert f"{default_message}\n" == result.output
 
 
-@pytest.fixture
-def runner():
-    return CliRunner()
-
-
 # - prints on stdout message based on test name when one test found in git diff
 # - prints on stdout message based on first found test name when many tests found in git diff
 # - runs git diff for given directory/file when path is given as option
@@ -49,3 +44,8 @@ def runner():
 # - test is commented
 # - test contains "test" in name
 # - test contains "def" in name
+
+
+@pytest.fixture
+def runner():
+    return CliRunner()
