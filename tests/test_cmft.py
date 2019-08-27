@@ -16,7 +16,7 @@ def test_prints_on_stdout_default_message_when_not_in_git_repo():
     with runner.isolated_filesystem():
         result = runner.invoke(main, [default_message])
         assert result.exit_code == 0
-        assert "f{default_message}\n" == result.output
+        assert f"{default_message}\n" == result.output
 
 
 # - prints on stderr error when could not run git diff
