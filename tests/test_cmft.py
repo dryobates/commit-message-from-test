@@ -27,7 +27,8 @@ def test_prints_on_stdout_default_message_when_no_tests_found_in_git_diff(runner
     default_message = "some message"
     with runner.isolated_filesystem():
         run("git init .", shell=True)
-        run("touch test_example.py", shell=True)
+        with open("test_example.py", "w") as test_file:
+            test_file.write("#")
         run("git add test_example.py", shell=True)
 
         result = runner.invoke(main, [default_message])
@@ -36,7 +37,9 @@ def test_prints_on_stdout_default_message_when_no_tests_found_in_git_diff(runner
         assert default_message == result.output
 
 
-def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_diff(runner):
+def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_diff(
+    runner
+):
     default_message = "some message"
     with runner.isolated_filesystem():
         run("git init .", shell=True)
@@ -48,6 +51,7 @@ def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_
 
         assert result.exit_code == 0
         assert "name" == result.output
+
 
 # - prints on stdout message based on first found test name when many tests found in git diff
 # - runs git diff for given directory/file when path is given as option

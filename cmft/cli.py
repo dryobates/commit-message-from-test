@@ -10,7 +10,13 @@ TEST_RE = re.compile(r"^\+def test_*(.*)$", re.MULTILINE)
 @click.argument("message")
 def main(message):
     try:
-        output = run("git diff --cached", shell=True, check=True, capture_output=True, encoding="utf8").stdout
+        output = run(
+            "git diff --cached",
+            shell=True,
+            check=True,
+            capture_output=True,
+            encoding="utf8",
+        ).stdout
     except CalledProcessError:
         click.echo(message, nl=False)
     else:
