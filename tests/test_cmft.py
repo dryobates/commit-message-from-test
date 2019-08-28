@@ -53,7 +53,20 @@ def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_
         assert "name" == result.output
 
 
-# - prints on stdout message based on first found test name when many tests found in git diff
+def test_prints_on_stdout_message_based_on_first_found_test_name_when_many_tests_found_in_git_diff(runner):
+    with runner.isolated_filesystem():
+        run("git init .", shell=True)
+        with open(TEST_FILE_NAME, "w") as test_file:
+            test_file.write("def test_first\n")
+            test_file.write("def test_second\n")
+        run(f"git add {TEST_FILE_NAME}", shell=True)
+
+        result = runner.invoke(main, [DEFAULT_MESSAGE])
+
+        assert result.exit_code == 0
+        assert "first" == result.output
+
+
 # - runs git diff for given directory/file when path is given as option
 # - test is method
 # - test has arguments
