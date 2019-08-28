@@ -4,6 +4,7 @@ from subprocess import CalledProcessError, run
 import click
 
 TEST_RE = re.compile(r"^\+\s*def test_*(.*)\(", re.MULTILINE)
+UNDERLINES_RE = re.compile("_+")
 
 
 @click.command()
@@ -23,7 +24,7 @@ def main(message):
         match = TEST_RE.search(output)
         if match:
             message = match.group(1)
-            message = re.sub("_+", " ", message).strip()
+            message = UNDERLINES_RE.sub(" ", message).strip()
     click.echo(message, nl=False)
 
 
