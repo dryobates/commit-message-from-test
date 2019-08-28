@@ -96,6 +96,23 @@ class TestExample(TestCase):
         assert "name" == result.output
 
 
+def test_does_not_include_function_arguments_in_message(runner):
+    with runner.isolated_filesystem():
+        run("git init .", shell=True)
+        with open(TEST_FILE_NAME, "w") as test_file:
+            test_file.write(
+                """
+def test_name(self, args1):
+    pass
+                """
+            )
+        run(f"git add {TEST_FILE_NAME}", shell=True)
+
+        result = runner.invoke(main, [DEFAULT_MESSAGE])
+
+        assert result.exit_code == 0
+        assert "name" == result.output
+
 # - runs git diff for given directory/file when path is given as option
 # - test has arguments
 # - test is commented
