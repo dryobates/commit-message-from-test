@@ -44,7 +44,7 @@ def test_outputs_message_based_on_test_name_when_one_test_found(runner):
         with open(TEST_FILE_NAME, "w") as test_file:
             test_file.write(
                 """
-def test_name
+def test_name():
     pass
                 """
             )
@@ -62,10 +62,10 @@ def test_outputs_message_based_on_first_found_test_name_when_many_tests_found(ru
         with open(TEST_FILE_NAME, "w") as test_file:
             test_file.write(
                 """
-def test_first
+def test_first():
     pass
 
-def test_second
+def test_second():
     pass
                 """
             )
@@ -84,7 +84,7 @@ def test_test_is_method(runner):
             test_file.write(
                 """
 class TestExample(TestCase):
-    def test_name
+    def test_name(self):
         pass
                 """
             )
