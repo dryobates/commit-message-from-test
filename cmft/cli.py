@@ -3,7 +3,7 @@ from subprocess import CalledProcessError, run
 
 import click
 
-TEST_RE = re.compile(r"^\+\s*def test_*(.*)\(", re.MULTILINE)
+TEST_RE = re.compile(r"^\+\s*def test(.*)\(", re.MULTILINE)
 UNDERLINES_RE = re.compile("_+")
 
 
