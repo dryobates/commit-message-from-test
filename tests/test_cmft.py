@@ -38,7 +38,7 @@ def test_outputs_message_based_on_test_name_when_one_test_found(runner):
     with runner.isolated_filesystem():
         _write_test_file_in_git_repo(
             """
-def test_name():
+def testname():
     pass
         """
         )
@@ -53,10 +53,10 @@ def test_outputs_message_based_on_first_found_test_name_when_many_tests_found(ru
     with runner.isolated_filesystem():
         _write_test_file_in_git_repo(
             """
-def test_first():
+def testfirst():
     pass
 
-def test_second():
+def testsecond():
     pass
         """
         )
@@ -72,7 +72,7 @@ def test_test_is_method(runner):
         _write_test_file_in_git_repo(
             """
 class TestExample(TestCase):
-    def test_name(self):
+    def testname(self):
         pass
         """
         )
@@ -87,7 +87,7 @@ def test_does_not_include_function_arguments_in_message(runner):
     with runner.isolated_filesystem():
         _write_test_file_in_git_repo(
             """
-def test_name(self, args1):
+def testname(self, args1):
     pass
         """
         )
@@ -102,10 +102,10 @@ def test_does_not_output_commented_tests(runner):
     with runner.isolated_filesystem():
         _write_test_file_in_git_repo(
             """
-# def test_first():
+# def testfirst():
 #    pass
 
-def test_second():
+def testsecond():
     pass
         """
         )
@@ -121,7 +121,7 @@ def test_contains_test_definition_words_in_name(runner, word):
     with runner.isolated_filesystem():
         _write_test_file_in_git_repo(
             f"""
-def test_{word}():
+def test{word}():
     pass
         """
         )
