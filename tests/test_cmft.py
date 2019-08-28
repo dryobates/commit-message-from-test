@@ -72,7 +72,7 @@ def test_test_is_method(runner):
             test_file.write(
                 """
     class TestExample(TestCase):
-        def test_name(self):
+        def test_name
             pass
                 """
             )
