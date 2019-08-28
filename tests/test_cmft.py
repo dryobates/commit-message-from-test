@@ -146,11 +146,12 @@ def test_def():
         assert "def" == result.output
 
 
-def test_changes_underlines_to_spaces_in_message(runner):
+@pytest.mark.parametrize("test_name", ["snake_case", "snake__case", "_snake_case", "snake_case"])
+def test_changes_underlines_to_spaces_in_message(runner, test_name):
     with runner.isolated_filesystem():
         _write_test_file_in_git_repo(
-            """
-def test_snake_case():
+            f"""
+def test_{test_name}():
     pass
         """
         )
