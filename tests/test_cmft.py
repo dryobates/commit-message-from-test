@@ -36,12 +36,10 @@ def test_outputs_default_message_when_no_tests_found(runner):
 
 def test_outputs_message_based_on_test_name_when_one_test_found(runner):
     with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            """
+        _write_test_file_in_git_repo("""
 def test_name():
     pass
-            """
-        )
+        """)
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
@@ -51,15 +49,13 @@ def test_name():
 
 def test_outputs_message_based_on_first_found_test_name_when_many_tests_found(runner):
     with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            """
+        _write_test_file_in_git_repo("""
 def test_first():
     pass
 
 def test_second():
     pass
-            """
-        )
+        """)
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
@@ -69,13 +65,11 @@ def test_second():
 
 def test_test_is_method(runner):
     with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            """
+        _write_test_file_in_git_repo("""
 class TestExample(TestCase):
     def test_name(self):
         pass
-            """
-        )
+        """)
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
@@ -85,12 +79,10 @@ class TestExample(TestCase):
 
 def test_does_not_include_function_arguments_in_message(runner):
     with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            """
+        _write_test_file_in_git_repo("""
 def test_name(self, args1):
     pass
-            """
-        )
+        """)
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
@@ -100,15 +92,13 @@ def test_name(self, args1):
 
 def test_does_not_output_commented_tests(runner):
     with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            """
+        _write_test_file_in_git_repo("""
 # def test_first():
 #    pass
 
 def test_second():
     pass
-            """
-        )
+        """)
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
