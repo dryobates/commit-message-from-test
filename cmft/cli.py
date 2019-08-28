@@ -22,7 +22,7 @@ def main(message):
     else:
         match = TEST_RE.search(output)
         if match:
-            message = match.group(1)
+            message = match.group(1).replace("_", " ")
     click.echo(message, nl=False)
 
 
