@@ -38,9 +38,7 @@ def test_outputs_default_message_when_no_tests_found(runner):
         assert DEFAULT_MESSAGE == result.output
 
 
-def test_outputs_message_based_on_test_name_when_one_test_found(
-    runner
-):
+def test_outputs_message_based_on_test_name_when_one_test_found(runner):
     with runner.isolated_filesystem():
         run("git init .", shell=True)
         with open(TEST_FILE_NAME, "w") as test_file:
@@ -67,8 +65,26 @@ def test_outputs_message_based_on_first_found_test_name_when_many_tests_found(ru
         assert "first" == result.output
 
 
+def test_test_is_method(runner):
+    with runner.isolated_filesystem():
+        run("git init .", shell=True)
+        with open(TEST_FILE_NAME, "w") as test_file:
+            test_file.write(
+                """
+    class TestExample(TestCase):
+        def test_name(self):
+            pass
+                """
+            )
+        run(f"git add {TEST_FILE_NAME}", shell=True)
+
+        result = runner.invoke(main, [DEFAULT_MESSAGE])
+
+        assert result.exit_code == 0
+        assert "name" == result.output
+
+
 # - runs git diff for given directory/file when path is given as option
-# - test is method
 # - test has arguments
 # - test is commented
 # - test contains "test" in name
