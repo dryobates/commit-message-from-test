@@ -118,9 +118,19 @@ def test_test():
         assert result.exit_code == 0
         assert "test" == result.output
 
+def test_contains_def_in_name(runner):
+    with runner.isolated_filesystem():
+        _write_test_file_in_git_repo("""
+def test_def():
+    pass
+        """)
+
+        result = runner.invoke(main, [DEFAULT_MESSAGE])
+
+        assert result.exit_code == 0
+        assert "def" == result.output
+
 # - runs git diff for given directory/file when path is given as option
-# - test contains "test" in name
-# - test contains "def" in name
 # - snake case function name
 # - camel case function name
 # - file tracked and not staged
