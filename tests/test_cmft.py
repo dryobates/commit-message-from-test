@@ -116,36 +116,6 @@ def test_second():
         assert "second" == result.output
 
 
-def test_contains_test_in_name(runner):
-    with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            """
-def test_test():
-    pass
-        """
-        )
-
-        result = runner.invoke(main, [DEFAULT_MESSAGE])
-
-        assert result.exit_code == 0
-        assert "test" == result.output
-
-
-def test_contains_def_in_name(runner):
-    with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            """
-def test_def():
-    pass
-        """
-        )
-
-        result = runner.invoke(main, [DEFAULT_MESSAGE])
-
-        assert result.exit_code == 0
-        assert "def" == result.output
-
-
 @pytest.mark.parametrize("word", ["def", "test"])
 def test_contains_test_definition_words_in_name(runner, word):
     with runner.isolated_filesystem():
@@ -163,7 +133,7 @@ def test_{word}():
 
 
 @pytest.mark.parametrize(
-    "test_name", ["snake_case", "snake__case", "_snake_case", "snake_case"]
+    "test_name", ["snake_case", "snake__case", "_snake_case", "snake_case_"]
 )
 def test_changes_underlines_to_spaces_in_message(runner, test_name):
     with runner.isolated_filesystem():
@@ -181,7 +151,6 @@ def test_{test_name}():
 
 
 # - runs git diff for given directory/file when path is given as option
-# - snake case function name
 # - camel case function name
 # - file tracked and not staged
 
