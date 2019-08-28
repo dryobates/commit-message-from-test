@@ -146,7 +146,25 @@ def test_def():
         assert "def" == result.output
 
 
-@pytest.mark.parametrize("test_name", ["snake_case", "snake__case", "_snake_case", "snake_case"])
+@pytest.mark.parametrize("word", ["def", "test"])
+def test_contains_test_definition_words_in_name(runner, word):
+    with runner.isolated_filesystem():
+        _write_test_file_in_git_repo(
+            f"""
+def test_{word}():
+    pass
+        """
+        )
+
+        result = runner.invoke(main, [DEFAULT_MESSAGE])
+
+        assert result.exit_code == 0
+        assert word == result.output
+
+
+@pytest.mark.parametrize(
+    "test_name", ["snake_case", "snake__case", "_snake_case", "snake_case"]
+)
 def test_changes_underlines_to_spaces_in_message(runner, test_name):
     with runner.isolated_filesystem():
         _write_test_file_in_git_repo(
