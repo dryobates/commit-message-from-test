@@ -16,7 +16,7 @@ def test_shows_usage_when_no_default_message_provided(runner):
     assert result.output.startswith("Usage:")
 
 
-def test_prints_on_stdout_default_message_when_could_not_run_git_diff(runner):
+def test_outputs_default_message_when_could_not_run_git_diff(runner):
     with runner.isolated_filesystem():
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
@@ -25,7 +25,7 @@ def test_prints_on_stdout_default_message_when_could_not_run_git_diff(runner):
         assert DEFAULT_MESSAGE == result.output
 
 
-def test_prints_on_stdout_default_message_when_no_tests_found_in_git_diff(runner):
+def test_outputs_default_message_when_no_tests_found(runner):
     with runner.isolated_filesystem():
         run("git init .", shell=True)
         with open(TEST_FILE_NAME, "w") as test_file:
@@ -38,7 +38,7 @@ def test_prints_on_stdout_default_message_when_no_tests_found_in_git_diff(runner
         assert DEFAULT_MESSAGE == result.output
 
 
-def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_diff(
+def test_outputs_message_based_on_test_name_when_one_test_found(
     runner
 ):
     with runner.isolated_filesystem():
@@ -53,7 +53,7 @@ def test_prints_on_stdout_message_based_on_test_name_when_one_test_found_in_git_
         assert "name" == result.output
 
 
-def test_prints_on_stdout_message_based_on_first_found_test_name_when_many_tests_found_in_git_diff(runner):
+def test_outputs_message_based_on_first_found_test_name_when_many_tests_found(runner):
     with runner.isolated_filesystem():
         run("git init .", shell=True)
         with open(TEST_FILE_NAME, "w") as test_file:
