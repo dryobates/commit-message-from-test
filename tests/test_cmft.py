@@ -139,7 +139,7 @@ def test_changes_underlines_to_spaces_in_message(runner, test_name):
     with runner.isolated_filesystem():
         _write_test_file_in_git_repo(
             f"""
-def test_{test_name}():
+def test{test_name}():
     pass
         """
         )
