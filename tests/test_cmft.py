@@ -63,7 +63,6 @@ def testsecond():
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
-        assert result.exit_code == 0
         assert "first" == result.output
 
 
@@ -79,7 +78,6 @@ class TestExample(TestCase):
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
-        assert result.exit_code == 0
         assert "name" == result.output
 
 
@@ -94,7 +92,6 @@ def testname(self, args1):
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
-        assert result.exit_code == 0
         assert "name" == result.output
 
 
@@ -112,7 +109,6 @@ def testsecond():
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
-        assert result.exit_code == 0
         assert "second" == result.output
 
 
@@ -128,7 +124,6 @@ def test{word}():
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
-        assert result.exit_code == 0
         assert word == result.output
 
 
@@ -146,7 +141,6 @@ def test{test_name}():
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
-        assert result.exit_code == 0
         assert "snake case" == result.output
 
 
