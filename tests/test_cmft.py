@@ -144,9 +144,7 @@ def test{test_name}():
         assert "snake case" == result.output
 
 
-@pytest.mark.parametrize(
-    "test_name", ["CamelCase", "camelCase"]
-)
+@pytest.mark.parametrize("test_name", ["CamelCase", "camelCase"])
 def test_changes_camel_case_to_words(runner, test_name):
     with runner.isolated_filesystem():
         _write_test_file_in_git_repo(
