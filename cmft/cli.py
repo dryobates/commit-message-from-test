@@ -5,6 +5,8 @@ import click
 
 TEST_RE = re.compile(r"^\+\s*def test(.*)\(", re.MULTILINE)
 UNDERLINES_RE = re.compile("_+")
+FIRST_CAP_RE = re.compile(r"(.)([A-Z][a-z]+)")
+ALL_CAP_RE = re.compile("([a-z0-9])([A-Z])")
 
 
 @click.command()
@@ -28,12 +30,9 @@ def main(message):
     click.echo(message, nl=False)
 
 
-first_cap_re = re.compile(r'(.)([A-Z][a-z]+)')
-all_cap_re = re.compile('([a-z0-9])([A-Z])')
-
-def camel_to_snake(s):
-    subbed = first_cap_re.sub(r'\1_\2', s)
-    return all_cap_re.sub(r'\1_\2', subbed).lower()
+def camel_to_snake(message):
+    message = FIRST_CAP_RE.sub(r"\1_\2", message)
+    return ALL_CAP_RE.sub(r"\1_\2", message).lower()
 
 
 if __name__ == "__main__":
