@@ -23,9 +23,17 @@ def main(message):
     else:
         match = TEST_RE.search(output)
         if match:
-            message = match.group(1)
+            message = camel_to_snake(match.group(1))
             message = UNDERLINES_RE.sub(" ", message).strip()
     click.echo(message, nl=False)
+
+
+first_cap_re = re.compile(r'(.)([A-Z][a-z]+)')
+all_cap_re = re.compile('([a-z0-9])([A-Z])')
+
+def camel_to_snake(s):
+    subbed = first_cap_re.sub(r'\1_\2', s)
+    return all_cap_re.sub(r'\1_\2', subbed).lower()
 
 
 if __name__ == "__main__":
