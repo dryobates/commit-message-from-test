@@ -161,7 +161,6 @@ def test{test_name}():
         assert "camel case" == result.output
 
 
-# - camel case function name
 # - file tracked and not staged
 # - runs git diff for given directory/file when path is given as option
 

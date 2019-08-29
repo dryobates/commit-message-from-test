@@ -35,5 +35,9 @@ def camel_to_snake(message):
     return ALL_CAP_RE.sub(r"\1_\2", message).lower()
 
 
+def snake_to_words(message):
+    return UNDERLINES_RE.sub(" ", message).strip()
+
+
 if __name__ == "__main__":
     main()
