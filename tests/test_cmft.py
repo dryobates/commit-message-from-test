@@ -38,7 +38,7 @@ def test_outputs_message_from_staged_files(runner):
 def testname():
     pass"""
     with runner.isolated_filesystem():
-        _write_test_file_content(file_content)
+        _write_test_file_content_in_repo(file_content)
         run(f"git add {TEST_FILE_NAME}", shell=True)
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
@@ -51,7 +51,7 @@ def test_outputs_message_from_not_staged_files(runner):
 def testname():
     pass"""
     with runner.isolated_filesystem():
-        _write_test_file_content(file_content)
+        _write_test_file_content_in_repo(file_content)
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
@@ -62,7 +62,7 @@ def testname():
 # - recognize different languages
 
 
-def _write_test_file_content(file_content):
+def _write_test_file_content_in_repo(file_content):
     _init_repo()
     with open(TEST_FILE_NAME, "w") as test_file:
         test_file.write(file_content)
