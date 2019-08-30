@@ -16,7 +16,7 @@ def test_shows_usage_when_no_default_message_provided(runner):
     assert result.output.startswith("Usage:")
 
 
-def test_outputs_default_message_when_could_not_run_git_diff(runner):
+def test_outputs_default_message_when_not_in_git_repository(runner):
     with runner.isolated_filesystem():
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
@@ -52,7 +52,6 @@ def testname():
 # - runs git diff for given directory/file when path is given as option
 # - recognize different languages
 # - no git repository
-# - no commit in git repository
 
 
 def _write_test_file_content(file_content):
