@@ -24,6 +24,19 @@ def test_outputs_default_message_when_could_not_run_git_diff(runner):
         assert DEFAULT_MESSAGE == result.output
 
 
+def test_output_message_based_on_test_found_in_git_diff(runner):
+    with runner.isolated_filesystem():
+        _write_test_file_in_git_repo(
+            """\
+def testname():
+    pass"""
+        )
+
+        result = runner.invoke(main, [DEFAULT_MESSAGE])
+
+        assert "name" == result.output
+
+
 def test_does_not_output_commented_tests(runner):
     with runner.isolated_filesystem():
         _write_test_file_in_git_repo(
