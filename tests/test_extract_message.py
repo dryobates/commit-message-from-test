@@ -30,3 +30,14 @@ def test_returns_message_based_on_first_found_test_name_when_many_tests_found():
     result = extract_message(message, DEFAULT_MESSAGE)
 
     assert "first" == result
+
+
+def test_returns_message_from_test_method():
+    message = """\
++class TestExample(TestCase):
++    def testname(self):
++        pass"""
+
+    result = extract_message(message, DEFAULT_MESSAGE)
+
+    assert "name" == result

@@ -24,21 +24,6 @@ def test_outputs_default_message_when_could_not_run_git_diff(runner):
         assert DEFAULT_MESSAGE == result.output
 
 
-def test_test_is_method(runner):
-    with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            """
-class TestExample(TestCase):
-    def testname(self):
-        pass
-        """
-        )
-
-        result = runner.invoke(main, [DEFAULT_MESSAGE])
-
-        assert "name" == result.output
-
-
 def test_does_not_include_function_arguments_in_message(runner):
     with runner.isolated_filesystem():
         _write_test_file_in_git_repo(
