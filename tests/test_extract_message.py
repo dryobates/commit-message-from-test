@@ -17,3 +17,16 @@ def test_returns_message_based_on_test_name_when_one_test_found():
     result = extract_message(message, DEFAULT_MESSAGE)
 
     assert "name" == result
+
+
+def test_returns_message_based_on_first_found_test_name_when_many_tests_found():
+    message = """\
++def testfirst():
+    +pass
++
++def testsecond():
+    +pass"""
+
+    result = extract_message(message, DEFAULT_MESSAGE)
+
+    assert "first" == result
