@@ -41,3 +41,13 @@ def test_returns_message_from_test_method():
     result = extract_message(message, DEFAULT_MESSAGE)
 
     assert "name" == result
+
+
+def test_does_not_include_function_arguments_in_message():
+    message = """\
++def testname(self, args1):
++    pass"""
+
+    result = extract_message(message, DEFAULT_MESSAGE)
+
+    assert "name" == result
