@@ -24,6 +24,15 @@ def test_outputs_default_message_when_not_in_git_repository(runner):
         assert DEFAULT_MESSAGE == result.output
 
 
+def test_outputs_default_message_when_no_commits(runner):
+    with runner.isolated_filesystem():
+        run("git init .", shell=True)
+        result = runner.invoke(main, [DEFAULT_MESSAGE])
+
+        assert result.exit_code == 0
+        assert DEFAULT_MESSAGE == result.output
+
+
 def test_outputs_message_from_staged_files(runner):
     file_content = """\
 def testname():
@@ -51,7 +60,6 @@ def testname():
 
 # - runs git diff for given directory/file when path is given as option
 # - recognize different languages
-# - no git repository
 
 
 def _write_test_file_content(file_content):
