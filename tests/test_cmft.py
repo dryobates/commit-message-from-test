@@ -37,23 +37,6 @@ def testname():
         assert "name" == result.output
 
 
-@pytest.mark.parametrize(
-    "test_name", ["snake_case", "snake__case", "_snake_case", "snake_case_"]
-)
-def test_changes_underlines_to_spaces_in_message(runner, test_name):
-    with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            f"""
-def test{test_name}():
-    pass
-        """
-        )
-
-        result = runner.invoke(main, [DEFAULT_MESSAGE])
-
-        assert "snake case" == result.output
-
-
 @pytest.mark.parametrize("test_name", ["CamelCase", "camelCase"])
 def test_changes_camel_case_to_words(runner, test_name):
     with runner.isolated_filesystem():
