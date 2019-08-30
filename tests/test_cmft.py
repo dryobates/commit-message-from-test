@@ -24,21 +24,6 @@ def test_outputs_default_message_when_could_not_run_git_diff(runner):
         assert DEFAULT_MESSAGE == result.output
 
 
-def test_outputs_message_based_on_test_name_when_one_test_found(runner):
-    with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            """
-def testname():
-    pass
-        """
-        )
-
-        result = runner.invoke(main, [DEFAULT_MESSAGE])
-
-        assert result.exit_code == 0
-        assert "name" == result.output
-
-
 def test_outputs_message_based_on_first_found_test_name_when_many_tests_found(runner):
     with runner.isolated_filesystem():
         _write_test_file_in_git_repo(

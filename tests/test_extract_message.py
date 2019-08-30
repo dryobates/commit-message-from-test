@@ -4,6 +4,16 @@ DEFAULT_MESSAGE = "some message"
 
 
 def test_returns_default_message_when_no_tests_found():
-    message = extract_message("#", DEFAULT_MESSAGE)
+    message = extract_message("+#", DEFAULT_MESSAGE)
 
     assert DEFAULT_MESSAGE == message
+
+
+def test_returns_message_based_on_test_name_when_one_test_found():
+    message = """\
++def testname():
+    pass"""
+
+    result = extract_message(message, DEFAULT_MESSAGE)
+
+    assert "name" == result
