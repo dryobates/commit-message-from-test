@@ -43,6 +43,7 @@ def testname():
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
+        assert result.exit_code == 0
         assert "name" == result.output
 
 
@@ -55,6 +56,7 @@ def testname():
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
+        assert result.exit_code == 0
         assert "name" == result.output
 
 
