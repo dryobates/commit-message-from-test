@@ -83,10 +83,21 @@ def test_contains_test_definition_words_in_name(word):
     "test_name", ["snake_case", "snake__case", "_snake_case", "snake_case_"]
 )
 def test_changes_underlines_to_spaces_in_message(test_name):
-    message = f"""
+    message = f"""\
 +def test{test_name}():
 +    pass"""
 
     result = extract_message(message, DEFAULT_MESSAGE)
 
     assert "snake case" == result
+
+
+@pytest.mark.parametrize("test_name", ["CamelCase", "camelCase"])
+def test_changes_camel_case_to_words(test_name):
+    message = f"""\
++def test{test_name}():
++    pass"""
+
+    result = extract_message(message, DEFAULT_MESSAGE)
+
+    assert "camel case" == result

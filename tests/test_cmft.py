@@ -37,21 +37,6 @@ def testname():
         assert "name" == result.output
 
 
-@pytest.mark.parametrize("test_name", ["CamelCase", "camelCase"])
-def test_changes_camel_case_to_words(runner, test_name):
-    with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            f"""
-def test{test_name}():
-    pass
-        """
-        )
-
-        result = runner.invoke(main, [DEFAULT_MESSAGE])
-
-        assert "camel case" == result.output
-
-
 # - file tracked and not staged
 # - runs git diff for given directory/file when path is given as option
 # - recognize different languages
