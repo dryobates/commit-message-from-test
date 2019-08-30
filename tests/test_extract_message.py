@@ -1,3 +1,5 @@
+import pytest
+
 from cmft.extract_message import extract_message
 
 DEFAULT_MESSAGE = "some message"
@@ -64,3 +66,14 @@ def test_does_not_output_commented_tests():
     result = extract_message(message, DEFAULT_MESSAGE)
 
     assert "second" == result
+
+
+@pytest.mark.parametrize("word", ["def", "test"])
+def test_contains_test_definition_words_in_name(word):
+    message = f"""\
++def test{word}():
++    pass"""
+
+    result = extract_message(message, DEFAULT_MESSAGE)
+
+    assert word == result
