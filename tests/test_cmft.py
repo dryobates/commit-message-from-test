@@ -25,12 +25,11 @@ def test_outputs_default_message_when_could_not_run_git_diff(runner):
 
 
 def test_output_message_based_on_test_found_in_git_diff(runner):
-    with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            """\
+    file_content = """\
 def testname():
     pass"""
-        )
+    with runner.isolated_filesystem():
+        _write_test_file_in_git_repo(file_content)
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
