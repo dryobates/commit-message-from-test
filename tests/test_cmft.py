@@ -24,26 +24,25 @@ def test_outputs_default_message_when_could_not_run_git_diff(runner):
         assert DEFAULT_MESSAGE == result.output
 
 
-def test_output_message_based_on_test_found_in_git_diff(runner):
+def test_outputs_message_from_staged_files(runner):
     file_content = """\
 def testname():
     pass"""
     with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(file_content)
+        _write_test_file_content(file_content)
+        run(f"git add {TEST_FILE_NAME}", shell=True)
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
         assert "name" == result.output
 
 
-def test_checks_diff_between_tracked_files_in_workdir_and_head(runner):
+def test_outputs_message_from_not_staged_files(runner):
     file_content = """\
 def testname():
     pass"""
     with runner.isolated_filesystem():
-        _init_repo()
-        with open(TEST_FILE_NAME, "w") as test_file:
-            test_file.write(file_content)
+        _write_test_file_content(file_content)
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 
@@ -56,11 +55,10 @@ def testname():
 # - no commit in git repository
 
 
-def _write_test_file_in_git_repo(content):
+def _write_test_file_content(file_content):
     _init_repo()
     with open(TEST_FILE_NAME, "w") as test_file:
-        test_file.write(content)
-    run(f"git add {TEST_FILE_NAME}", shell=True)
+        test_file.write(file_content)
 
 
 def _init_repo():
