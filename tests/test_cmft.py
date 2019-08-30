@@ -161,6 +161,7 @@ def test{test_name}():
 
 # - file tracked and not staged
 # - runs git diff for given directory/file when path is given as option
+# - recognize different languages
 
 
 def _write_test_file_in_git_repo(content):
