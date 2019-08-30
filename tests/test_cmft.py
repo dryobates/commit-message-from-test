@@ -44,7 +44,7 @@ def testname():
         run("git init .", shell=True)
         run(f"touch {TEST_FILE_NAME}", shell=True)
         run(f"git add {TEST_FILE_NAME}", shell=True)
-        run(f"git commit {TEST_FILE_NAME}", shell=True)
+        run(f"git commit -m 'init' {TEST_FILE_NAME}", shell=True)
         with open(TEST_FILE_NAME, "w") as test_file:
             test_file.write(file_content)
 
