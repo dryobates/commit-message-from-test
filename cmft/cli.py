@@ -33,8 +33,7 @@ def _get_diff_output():
 def _extract_message(output, message):
     match = TEST_RE.search(output)
     if match:
-        message = camel_to_snake(match.group(1))
-        message = UNDERLINES_RE.sub(" ", message).strip()
+        message = snake_to_words(camel_to_snake(match.group(1)))
     return message
 
 
