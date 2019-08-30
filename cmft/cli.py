@@ -16,7 +16,7 @@ def main(message):
 def _get_diff_output():
     try:
         return run(
-            "git diff --cached",
+            "git diff HEAD",
             shell=True,
             check=True,
             capture_output=True,
