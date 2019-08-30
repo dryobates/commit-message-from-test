@@ -36,6 +36,22 @@ def testname():
         assert "name" == result.output
 
 
+def test_checks_diff_between_tracked_files_in_workdir_and_head(runner):
+    file_content = """\
+def testname():
+    pass"""
+    with runner.isolated_filesystem():
+        run("git init .", shell=True)
+        run("touch {TEST_FILE_NAME}", shell=True)
+        run(f"git add {TEST_FILE_NAME}", shell=True)
+        run(f"git commit {TEST_FILE_NAME}", shell=True)
+        with open(TEST_FILE_NAME, "w") as test_file:
+            test_file.write(file_content)
+
+        result = runner.invoke(main, [DEFAULT_MESSAGE])
+
+        assert "name" == result.output
+
 # - file tracked and not staged
 # - runs git diff for given directory/file when path is given as option
 # - recognize different languages
