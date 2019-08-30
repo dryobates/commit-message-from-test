@@ -41,10 +41,7 @@ def test_checks_diff_between_tracked_files_in_workdir_and_head(runner):
 def testname():
     pass"""
     with runner.isolated_filesystem():
-        run("git init .", shell=True)
-        run(f"touch {TEST_FILE_NAME}", shell=True)
-        run(f"git add {TEST_FILE_NAME}", shell=True)
-        run(f"git commit -m 'init' {TEST_FILE_NAME}", shell=True)
+        _init_repo()
         with open(TEST_FILE_NAME, "w") as test_file:
             test_file.write(file_content)
 
@@ -52,15 +49,25 @@ def testname():
 
         assert "name" == result.output
 
+
 # - runs git diff for given directory/file when path is given as option
 # - recognize different languages
+# - no git repository
+# - no commit in git repository
 
 
 def _write_test_file_in_git_repo(content):
-    run("git init .", shell=True)
+    _init_repo()
     with open(TEST_FILE_NAME, "w") as test_file:
         test_file.write(content)
     run(f"git add {TEST_FILE_NAME}", shell=True)
+
+
+def _init_repo():
+    run("git init .", shell=True)
+    run(f"touch {TEST_FILE_NAME}", shell=True)
+    run(f"git add {TEST_FILE_NAME}", shell=True)
+    run(f"git commit -m 'init' {TEST_FILE_NAME}", shell=True)
 
 
 @pytest.fixture
