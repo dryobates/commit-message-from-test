@@ -12,8 +12,14 @@ ALL_CAP_RE = re.compile("([a-z0-9])([A-Z])")
 @click.command()
 @click.argument("message")
 def main(message):
+    output = _get_diff_output()
+    message = _extract_message(output, message)
+    click.echo(message, nl=False)
+
+
+def _get_diff_output():
     try:
-        output = run(
+        return run(
             "git diff --cached",
             shell=True,
             check=True,
@@ -21,13 +27,15 @@ def main(message):
             encoding="utf8",
         ).stdout
     except CalledProcessError:
-        pass
-    else:
-        match = TEST_RE.search(output)
-        if match:
-            message = camel_to_snake(match.group(1))
-            message = UNDERLINES_RE.sub(" ", message).strip()
-    click.echo(message, nl=False)
+        return ""
+
+
+def _extract_message(output, message):
+    match = TEST_RE.search(output)
+    if match:
+        message = camel_to_snake(match.group(1))
+        message = UNDERLINES_RE.sub(" ", message).strip()
+    return message
 
 
 def camel_to_snake(message):
