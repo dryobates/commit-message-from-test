@@ -30,11 +30,12 @@ def _get_diff_output():
         return ""
 
 
-def _extract_message(output, message):
+def _extract_message(output, default_message):
     match = TEST_RE.search(output)
     if match:
-        message = snake_to_words(camel_to_snake(match.group(1)))
-    return message
+        return snake_to_words(camel_to_snake(match.group(1)))
+    else:
+        return default_message
 
 
 def camel_to_snake(message):
