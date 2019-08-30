@@ -37,23 +37,6 @@ def testname():
         assert "name" == result.output
 
 
-def test_does_not_output_commented_tests(runner):
-    with runner.isolated_filesystem():
-        _write_test_file_in_git_repo(
-            """
-# def testfirst():
-#    pass
-
-def testsecond():
-    pass
-        """
-        )
-
-        result = runner.invoke(main, [DEFAULT_MESSAGE])
-
-        assert "second" == result.output
-
-
 @pytest.mark.parametrize("word", ["def", "test"])
 def test_contains_test_definition_words_in_name(runner, word):
     with runner.isolated_filesystem():

@@ -51,3 +51,16 @@ def test_does_not_include_function_arguments_in_message():
     result = extract_message(message, DEFAULT_MESSAGE)
 
     assert "name" == result
+
+
+def test_does_not_output_commented_tests():
+    message = """\
++# def testfirst():
++#    pass
++
++def testsecond():
++    pass"""
+
+    result = extract_message(message, DEFAULT_MESSAGE)
+
+    assert "second" == result
