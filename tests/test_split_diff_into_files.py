@@ -32,7 +32,7 @@ index 0000000..0d6170b
 
     file_diffs = list(split_diff_into_files(diff))
 
-    assert len(file_diffs)
+    assert len(file_diffs) == 1
     assert file_diffs[0] == diff.replace("diff ", "")
 
 
