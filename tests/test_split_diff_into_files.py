@@ -1,6 +1,3 @@
-# recognizes language from diff
-# ignores file diff when not supported language
-
 from cmft.split_diff_into_files import split_diff_into_files
 
 
@@ -56,3 +53,21 @@ index 0000000..0d6170b
     file_diffs = list(split_diff_into_files(diff))
 
     assert len(file_diffs) == 2
+
+
+# recognizes language from diff
+
+
+def test_returns_none_when_unknown_file_type():
+    diff = """\
+--git a/file.txt b/file.txt
+new file mode 100644
+index 0000000..0d6170b
+--- /dev/null
++++ b/file.txt
+@@ -0,0 +1 @@
++# test"""
+
+    lang = recognize_lang(diff)
+
+    assert lang is None
