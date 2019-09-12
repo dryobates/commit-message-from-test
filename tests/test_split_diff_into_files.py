@@ -12,3 +12,11 @@ def test_returns_empty_iterator_when_no_file_boundary_found():
     file_diffs = list(split_diff_into_files(diff))
 
     assert file_diffs == []
+
+
+def test_returns_empty_iterator_when_no_empty_diff():
+    diff = ""
+
+    file_diffs = list(split_diff_into_files(diff))
+
+    assert file_diffs == []
