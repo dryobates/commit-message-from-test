@@ -1,4 +1,3 @@
-# returns iterable over file diffs with two items
 # recognizes language from diff
 # ignores file diff when not supported language
 
@@ -35,3 +34,25 @@ index 0000000..0d6170b
 
     assert len(file_diffs)
     assert file_diffs[0] == diff.replace("diff ", "")
+
+
+def test_returns_iterable_with_two_elements_when_diff_with_two_files():
+    diff = """\
+diff --git a/file.txt b/file.txt
+new file mode 100644
+index 0000000..0d6170b
+--- /dev/null
++++ b/file.txt
+@@ -0,0 +1 @@
++# test
+diff --git a/other.txt b/other.txt
+new file mode 100644
+index 0000000..0d6170b
+--- a/other.txt
++++ b/other.txt
+@@ -0,0 +1 @@
++# test"""
+
+    file_diffs = list(split_diff_into_files(diff))
+
+    assert len(file_diffs) == 2
