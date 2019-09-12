@@ -29,9 +29,9 @@ index 0000000..0d6170b
 --- /dev/null
 +++ b/file.txt
 @@ -0,0 +1 @@
-+# test
-    """
++# test"""
 
     file_diffs = list(split_diff_into_files(diff))
 
     assert len(file_diffs)
+    assert file_diffs[0] == diff.replace("diff ", "")
