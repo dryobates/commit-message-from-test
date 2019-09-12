@@ -1,4 +1,4 @@
-from cmft.split_diff_into_files import split_diff_into_files
+from cmft.split_diff_into_files import split_diff_into_files, recognize_lang
 
 
 def test_returns_empty_iterable_when_no_file_boundary_found():
