@@ -1,11 +1,11 @@
-# returns iterator over file diffs with two items
+# returns iterable over file diffs with two items
 # recognizes language from diff
 # ignores file diff when not supported language
 
 from cmft.split_diff_into_files import split_diff_into_files
 
 
-def test_returns_empty_iterator_when_no_file_boundary_found():
+def test_returns_empty_iterable_when_no_file_boundary_found():
     diff = "+ no file boundary"
 
     file_diffs = list(split_diff_into_files(diff))
@@ -13,7 +13,7 @@ def test_returns_empty_iterator_when_no_file_boundary_found():
     assert file_diffs == []
 
 
-def test_returns_empty_iterator_when_no_empty_diff():
+def test_returns_empty_iterable_when_no_empty_diff():
     diff = ""
 
     file_diffs = list(split_diff_into_files(diff))
