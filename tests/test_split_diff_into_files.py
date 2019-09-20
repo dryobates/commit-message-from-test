@@ -55,9 +55,6 @@ index 0000000..0d6170b
     assert len(file_diffs) == 2
 
 
-# recognizes language from diff
-
-
 def test_returns_none_when_unknown_file_type():
     diff = """\
 --git a/file.txt b/file.txt
@@ -71,3 +68,18 @@ index 0000000..0d6170b
     lang = recognize_lang(diff)
 
     assert lang is None
+
+
+def test_returns_extension_when_known_file_type():
+    diff = """\
+--git a/file.py b/file.py
+new file mode 100644
+index 0000000..0d6170b
+--- /dev/null
++++ b/file.py
+@@ -0,0 +1 @@
++# test"""
+
+    lang = recognize_lang(diff)
+
+    assert lang == "py"
