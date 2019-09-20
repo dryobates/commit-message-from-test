@@ -6,9 +6,13 @@ def split_diff_into_files(diff):
     return chunks[1:]
 
 
+KNOWN_FILES = {"py"}
+
+
 def recognize_lang(diff):
     match = re.search(r"^\+\+\+ .*\.(?P<ext>.*)$", diff, re.MULTILINE)
     if match:
-        if match.group("ext") == "py":
-            return "py"
+        ext = match.group("ext")
+        if ext in KNOWN_FILES:
+            return ext
     return None
