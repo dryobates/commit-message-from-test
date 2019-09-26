@@ -105,4 +105,16 @@ index 0000000..0d6170b
     assert message is None
 
 
-# TODO: extracts message when known language
+def test_extracts_message_when_known_language():
+    diff = """\
+--git a/file.py b/file.py
+new file mode 100644
+index 0000000..0d6170b
+--- /dev/null
++++ b/file.py
+@@ -0,0 +1 @@
++def test_abc"""
+
+    message = extract_message_from_file_diff(diff)
+
+    assert message === "abc"
