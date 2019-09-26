@@ -1,9 +1,9 @@
 from cmft.extract_message import extract_message
 from cmft.split_diff_into_files import (
+    extract_message_from_file_diff,
     get_language_extract_method,
     split_diff_into_files,
 )
-from split_diff_into_files import extract_message_from_file_diff
 
 
 def test_returns_empty_iterable_when_no_file_boundary_found():

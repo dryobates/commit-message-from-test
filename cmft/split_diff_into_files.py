@@ -11,7 +11,9 @@ def split_diff_into_files(diff):
 
 
 def extract_message_from_file_diff(diff):
-    pass
+    extract = get_language_extract_method(diff)
+    assert extract is None
+    return None
 
 
 def get_language_extract_method(diff):
