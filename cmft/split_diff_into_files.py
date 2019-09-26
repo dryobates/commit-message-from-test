@@ -19,15 +19,14 @@ def split_diff_into_separate_file_diffs(diff):
 
 def extract_message_from_file_diff(diff):
     extract = get_extract_method_for_file_diff(diff)
-    if extract is not None:
-        return extract(diff, "")
-    else:
-        return None
+    return extract(diff, "")
 
 
 def get_extract_method_for_file_diff(diff):
     match = LANG_EXT.search(diff)
-    if match:
-        ext = match.group("ext")
-        return KNOWN_FILES.get(ext, None)
+    ext = match.group("ext") if match else None
+    return KNOWN_FILES.get(ext, null_function)
+
+
+def null_function(*args, **kwargs):
     return None

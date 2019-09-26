@@ -4,6 +4,7 @@ from cmft.split_diff_into_files import (
     extract_message_from_file_diff,
     get_extract_method_for_file_diff,
     split_diff_into_separate_file_diffs,
+    null_function,
 )
 
 
@@ -61,7 +62,7 @@ index 0000000..0d6170b
     assert len(file_diffs) == 2
 
 
-def test_returns_none_when_unknown_file_type():
+def test_returns_null_function_when_unknown_file_type():
     diff = """\
 --git a/file.txt b/file.txt
 new file mode 100644
@@ -73,7 +74,7 @@ index 0000000..0d6170b
 
     method = get_extract_method_for_file_diff(diff)
 
-    assert method is None
+    assert method is null_function
 
 
 def test_returns_extract_method_for_known_file_type():
