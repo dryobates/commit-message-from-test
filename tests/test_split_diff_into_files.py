@@ -1,5 +1,6 @@
 from cmft.extract_message import extract_message
 from cmft.split_diff_into_files import (
+    extract_messages_from_diff,
     extract_message_from_file_diff,
     get_language_extract_method,
     split_diff_into_files,
@@ -123,7 +124,7 @@ index 0000000..0d6170b
 
 def test_returns_messages_for_known_files_from_diff():
     diff = """\
---git a/file.py b/file.py
+diff --git a/file.py b/file.py
 new file mode 100644
 index 0000000..0d6170b
 --- /dev/null
@@ -131,14 +132,14 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +def test_def():
     pass
---git a/file.txt b/file.txt
+diff --git a/file.txt b/file.txt
 new file mode 100644
 index 0000000..0d6170b
 --- /dev/null
 +++ b/file.txt
 @@ -0,0 +1 @@
 +# test
---git a/file.py b/file.py
+diff --git a/file.py b/file.py
 new file mode 100644
 index 0000000..0d6170b
 --- /dev/null
