@@ -105,7 +105,7 @@ index 0000000..0d6170b
     assert message is None
 
 
-def test_extracts_message_when_known_language():
+def test_returns_message_when_known_language():
     diff = """\
 --git a/file.py b/file.py
 new file mode 100644
@@ -119,3 +119,34 @@ index 0000000..0d6170b
     message = extract_message_from_file_diff(diff)
 
     assert message == "abc"
+
+
+def test_returns_messages_for_known_files_from_diff():
+    diff = """\
+--git a/file.py b/file.py
+new file mode 100644
+index 0000000..0d6170b
+--- /dev/null
++++ b/file.py
+@@ -0,0 +1 @@
++def test_def():
+    pass
+--git a/file.txt b/file.txt
+new file mode 100644
+index 0000000..0d6170b
+--- /dev/null
++++ b/file.txt
+@@ -0,0 +1 @@
++# test
+--git a/file.py b/file.py
+new file mode 100644
+index 0000000..0d6170b
+--- /dev/null
++++ b/file.py
+@@ -0,0 +1 @@
++def test_abc():
+    pass"""
+
+    messages = extract_messages_from_diff(diff)
+
+    assert messages == ["def", "abc"]
