@@ -113,7 +113,8 @@ index 0000000..0d6170b
 --- /dev/null
 +++ b/file.py
 @@ -0,0 +1 @@
-+def test_abc"""
++def test_abc():
+    pass"""
 
     message = extract_message_from_file_diff(diff)
 
