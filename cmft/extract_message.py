@@ -6,12 +6,14 @@ FIRST_CAP_RE = re.compile(r"(.)([A-Z][a-z]+)")
 ALL_CAP_RE = re.compile("([a-z0-9])([A-Z])")
 
 
-def extract_message_from_python_file_diff(output, default_message):
-    match = TEST_RE.search(output)
-    if match:
-        return snake_to_words(camel_to_snake(match.group(1)))
-    else:
-        return default_message
+def extract_message(output, default_message):
+    message = extract_message_from_python_file_diff(output)
+    return message if message is not None else default_message
+
+
+def extract_message_from_python_file_diff(diff):
+    match = TEST_RE.search(diff)
+    return snake_to_words(camel_to_snake(match.group(1))) if match else None
 
 
 def camel_to_snake(message):
