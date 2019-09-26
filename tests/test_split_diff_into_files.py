@@ -2,7 +2,7 @@ from cmft.extract_message import extract_message_from_python_file_diff
 from cmft.split_diff_into_files import (
     extract_messages_from_diff,
     extract_message_from_file_diff,
-    get_language_extract_method,
+    get_extract_method_for_file_diff,
     split_diff_into_separate_file_diffs,
 )
 
@@ -71,7 +71,7 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    method = get_language_extract_method(diff)
+    method = get_extract_method_for_file_diff(diff)
 
     assert method is None
 
@@ -86,7 +86,7 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    method = get_language_extract_method(diff)
+    method = get_extract_method_for_file_diff(diff)
 
     assert method is extract_message_from_python_file_diff
 

@@ -1,6 +1,6 @@
 # commit-message-from-test
 
-# Develpment
+# Development
 ```
 $ make develop  # creates virtualenv with poetry
 $ make test     # runs tests

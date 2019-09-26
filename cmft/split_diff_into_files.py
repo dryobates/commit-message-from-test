@@ -18,14 +18,14 @@ def split_diff_into_separate_file_diffs(diff):
 
 
 def extract_message_from_file_diff(diff):
-    extract = get_language_extract_method(diff)
+    extract = get_extract_method_for_file_diff(diff)
     if extract is not None:
         return extract(diff, "")
     else:
         return None
 
 
-def get_language_extract_method(diff):
+def get_extract_method_for_file_diff(diff):
     match = LANG_EXT.search(diff)
     if match:
         ext = match.group("ext")
