@@ -6,15 +6,10 @@ from cmft.split_diff_into_files import extract_messages_from_diff
 
 
 @click.command()
-@click.argument("message")
-def main(message):
+def main():
     diff = _get_diff_output()
     messages = extract_messages_from_diff(diff)
-    if messages:
-        output = messages
-    else:
-        output = [message]
-    click.echo("\n".join(output), nl=False)
+    click.echo("\n".join(messages), nl=False)
 
 
 def _get_diff_output():
