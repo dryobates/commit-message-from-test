@@ -68,10 +68,12 @@ def test_first():
 def test_second():
     pass"""
     with runner.isolated_filesystem():
-        _write_test_file_content_in_repo(first_file_content)
-        other_file_name = "test_other_example.py"
-        _write_test_file_content_in_repo(second_file_content, other_file_name)
-        run(f"git add {other_file_name}", shell=True)
+        first_file_name = "test_first_example.py"
+        _write_test_file_content_in_repo(first_file_content, first_file_name)
+        second_file_name = "test_second_example.py"
+        _write_test_file_content_in_repo(second_file_content, second_file_name)
+        run(f"git add {first_file_name}", shell=True)
+        run(f"git add {second_file_name}", shell=True)
 
         result = runner.invoke(main, [DEFAULT_MESSAGE])
 

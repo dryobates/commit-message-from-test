@@ -11,8 +11,10 @@ def main(message):
     diff = _get_diff_output()
     messages = extract_messages_from_diff(diff)
     if messages:
-        message = messages[0]
-    click.echo(message, nl=False)
+        output = messages
+    else:
+        output = [message]
+    click.echo("\n".join(output), nl=False)
 
 
 def _get_diff_output():
