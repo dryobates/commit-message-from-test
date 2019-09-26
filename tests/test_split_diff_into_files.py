@@ -1,5 +1,9 @@
-from cmft.split_diff_into_files import split_diff_into_files, get_language_extract_method
 from cmft.extract_message import extract_message
+from cmft.split_diff_into_files import (
+    get_language_extract_method,
+    split_diff_into_files,
+)
+from split_diff_into_files import extract_message_from_file_diff
 
 
 def test_returns_empty_iterable_when_no_file_boundary_found():
@@ -84,3 +88,21 @@ index 0000000..0d6170b
     method = get_language_extract_method(diff)
 
     assert method is extract_message
+
+
+def test_returns_none_when_unknown_language():
+    diff = """\
+--git a/file.txt b/file.txt
+new file mode 100644
+index 0000000..0d6170b
+--- /dev/null
++++ b/file.txt
+@@ -0,0 +1 @@
++# test"""
+
+    message = extract_message_from_file_diff(diff)
+
+    assert message is None
+
+
+# TODO: extracts message when known language

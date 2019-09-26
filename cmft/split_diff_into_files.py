@@ -10,6 +10,10 @@ def split_diff_into_files(diff):
     return chunks[1:]
 
 
+def extract_message_from_file_diff(diff):
+    pass
+
+
 def get_language_extract_method(diff):
     match = LANG_EXT.search(diff)
     if match:
