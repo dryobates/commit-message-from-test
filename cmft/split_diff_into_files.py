@@ -10,7 +10,7 @@ def split_diff_into_files(diff):
     return chunks[1:]
 
 
-def recognize_lang(diff):
+def get_language_extract_method(diff):
     match = LANG_EXT.search(diff)
     if match:
         ext = match.group("ext")

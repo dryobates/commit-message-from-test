@@ -1,4 +1,4 @@
-from cmft.split_diff_into_files import split_diff_into_files, recognize_lang
+from cmft.split_diff_into_files import split_diff_into_files, get_language_extract_method
 from cmft.extract_message import extract_message
 
 
@@ -66,9 +66,9 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    lang = recognize_lang(diff)
+    method = get_language_extract_method(diff)
 
-    assert lang is None
+    assert method is None
 
 
 def test_returns_extract_method_for_known_file_type():
@@ -81,6 +81,6 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    method = recognize_lang(diff)
+    method = get_language_extract_method(diff)
 
     assert method is extract_message
