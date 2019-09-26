@@ -3,14 +3,14 @@ from cmft.split_diff_into_files import (
     extract_messages_from_diff,
     extract_message_from_file_diff,
     get_language_extract_method,
-    split_diff_into_files,
+    split_diff_into_separate_file_diffs,
 )
 
 
 def test_returns_empty_iterable_when_no_file_boundary_found():
     diff = "+ no file boundary"
 
-    file_diffs = list(split_diff_into_files(diff))
+    file_diffs = list(split_diff_into_separate_file_diffs(diff))
 
     assert file_diffs == []
 
@@ -18,7 +18,7 @@ def test_returns_empty_iterable_when_no_file_boundary_found():
 def test_returns_empty_iterable_when_no_empty_diff():
     diff = ""
 
-    file_diffs = list(split_diff_into_files(diff))
+    file_diffs = list(split_diff_into_separate_file_diffs(diff))
 
     assert file_diffs == []
 
@@ -33,7 +33,7 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    file_diffs = list(split_diff_into_files(diff))
+    file_diffs = list(split_diff_into_separate_file_diffs(diff))
 
     assert len(file_diffs) == 1
     assert file_diffs[0] == diff.replace("diff ", "")
@@ -56,7 +56,7 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    file_diffs = list(split_diff_into_files(diff))
+    file_diffs = list(split_diff_into_separate_file_diffs(diff))
 
     assert len(file_diffs) == 2
 
