@@ -1,9 +1,9 @@
 import re
 
-from cmft.extract_message import extract_message
+from cmft.extract_message import extract_message_from_python_file_diff
 
 LANG_EXT = re.compile(r"^\+\+\+ .*\.(?P<ext>.*)$", re.MULTILINE)
-KNOWN_FILES = {"py": extract_message}
+KNOWN_FILES = {"py": extract_message_from_python_file_diff}
 
 
 def extract_messages_from_diff(diff):

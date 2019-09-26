@@ -1,12 +1,12 @@
 import pytest
 
-from cmft.extract_message import extract_message
+from cmft.extract_message import extract_message_from_python_file_diff
 
 DEFAULT_MESSAGE = "some message"
 
 
 def test_returns_default_message_when_no_tests_found():
-    message = extract_message("+#", DEFAULT_MESSAGE)
+    message = extract_message_from_python_file_diff("+#", DEFAULT_MESSAGE)
 
     assert DEFAULT_MESSAGE == message
 
@@ -16,7 +16,7 @@ def test_returns_message_based_on_test_name_when_one_test_found():
 +def testname():
     pass"""
 
-    result = extract_message(message, DEFAULT_MESSAGE)
+    result = extract_message_from_python_file_diff(message, DEFAULT_MESSAGE)
 
     assert "name" == result
 
@@ -29,7 +29,7 @@ def test_returns_message_based_on_first_found_test_name_when_many_tests_found():
 +def testsecond():
     +pass"""
 
-    result = extract_message(message, DEFAULT_MESSAGE)
+    result = extract_message_from_python_file_diff(message, DEFAULT_MESSAGE)
 
     assert "first" == result
 
@@ -40,7 +40,7 @@ def test_returns_message_from_test_method():
 +    def testname(self):
 +        pass"""
 
-    result = extract_message(message, DEFAULT_MESSAGE)
+    result = extract_message_from_python_file_diff(message, DEFAULT_MESSAGE)
 
     assert "name" == result
 
@@ -50,7 +50,7 @@ def test_does_not_include_function_arguments_in_message():
 +def testname(self, args1):
 +    pass"""
 
-    result = extract_message(message, DEFAULT_MESSAGE)
+    result = extract_message_from_python_file_diff(message, DEFAULT_MESSAGE)
 
     assert "name" == result
 
@@ -63,7 +63,7 @@ def test_does_not_output_commented_tests():
 +def testsecond():
 +    pass"""
 
-    result = extract_message(message, DEFAULT_MESSAGE)
+    result = extract_message_from_python_file_diff(message, DEFAULT_MESSAGE)
 
     assert "second" == result
 
@@ -74,7 +74,7 @@ def test_contains_test_definition_words_in_name(word):
 +def test{word}():
 +    pass"""
 
-    result = extract_message(message, DEFAULT_MESSAGE)
+    result = extract_message_from_python_file_diff(message, DEFAULT_MESSAGE)
 
     assert word == result
 
@@ -87,7 +87,7 @@ def test_changes_underlines_to_spaces_in_message(test_name):
 +def test{test_name}():
 +    pass"""
 
-    result = extract_message(message, DEFAULT_MESSAGE)
+    result = extract_message_from_python_file_diff(message, DEFAULT_MESSAGE)
 
     assert "snake case" == result
 
@@ -98,6 +98,6 @@ def test_changes_camel_case_to_words(test_name):
 +def test{test_name}():
 +    pass"""
 
-    result = extract_message(message, DEFAULT_MESSAGE)
+    result = extract_message_from_python_file_diff(message, DEFAULT_MESSAGE)
 
     assert "camel case" == result

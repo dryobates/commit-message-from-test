@@ -2,14 +2,14 @@ from subprocess import CalledProcessError, run
 
 import click
 
-from cmft.extract_message import extract_message
+from cmft.extract_message import extract_message_from_python_file_diff
 
 
 @click.command()
 @click.argument("message")
 def main(message):
     output = _get_diff_output()
-    message = extract_message(output, message)
+    message = extract_message_from_python_file_diff(output, message)
     click.echo(message, nl=False)
 
 
