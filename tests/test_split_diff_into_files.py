@@ -117,4 +117,4 @@ index 0000000..0d6170b
 
     message = extract_message_from_file_diff(diff)
 
-    assert message === "abc"
+    assert message == "abc"
