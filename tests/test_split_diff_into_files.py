@@ -1,4 +1,5 @@
 from cmft.split_diff_into_files import split_diff_into_files, recognize_lang
+from cmft.extract_message import extract_message
 
 
 def test_returns_empty_iterable_when_no_file_boundary_found():
@@ -70,7 +71,7 @@ index 0000000..0d6170b
     assert lang is None
 
 
-def test_returns_extension_when_known_file_type():
+def test_returns_extract_method_for_known_file_type():
     diff = """\
 --git a/file.py b/file.py
 new file mode 100644
@@ -80,6 +81,6 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    lang = recognize_lang(diff)
+    method = recognize_lang(diff)
 
-    assert lang == "py"
+    assert method is extract_message

@@ -1,7 +1,8 @@
 import re
+from cmft.extract_message import extract_message
 
 LANG_EXT = re.compile(r"^\+\+\+ .*\.(?P<ext>.*)$", re.MULTILINE)
-KNOWN_FILES = {"py"}
+KNOWN_FILES = {"py": extract_message}
 
 
 def split_diff_into_files(diff):
@@ -13,6 +14,5 @@ def recognize_lang(diff):
     match = LANG_EXT.search(diff)
     if match:
         ext = match.group("ext")
-        if ext in KNOWN_FILES:
-            return ext
+        return KNOWN_FILES.get(ext, None)
     return None
