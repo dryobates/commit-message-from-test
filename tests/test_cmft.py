@@ -60,13 +60,32 @@ def testname():
         assert "name" == result.output
 
 
+def test_outputs_all_possible_messages(runner):
+    first_file_content = """\
+def test_first():
+    pass"""
+    second_file_content = """\
+def test_second():
+    pass"""
+    with runner.isolated_filesystem():
+        _write_test_file_content_in_repo(first_file_content)
+        other_file_name = "test_other_example.py"
+        _write_test_file_content_in_repo(second_file_content, other_file_name)
+        run(f"git add {other_file_name}", shell=True)
+
+        result = runner.invoke(main, [DEFAULT_MESSAGE])
+
+        assert result.exit_code == 0
+        assert "first\nsecond" == result.output
+
+
 # - runs git diff for given directory/file when path is given as option
 # - recognize different languages
 
 
-def _write_test_file_content_in_repo(file_content):
+def _write_test_file_content_in_repo(file_content, file_name=TEST_FILE_NAME):
     _init_repo()
-    with open(TEST_FILE_NAME, "w") as test_file:
+    with open(file_name, "w") as test_file:
         test_file.write(file_content)
 
 

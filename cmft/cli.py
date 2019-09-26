@@ -8,8 +8,8 @@ from cmft.split_diff_into_files import extract_messages_from_diff
 @click.command()
 @click.argument("message")
 def main(message):
-    output = _get_diff_output()
-    messages = extract_messages_from_diff(output)
+    diff = _get_diff_output()
+    messages = extract_messages_from_diff(diff)
     if messages:
         message = messages[0]
     click.echo(message, nl=False)
