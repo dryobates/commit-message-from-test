@@ -3,12 +3,7 @@ import re
 from cmft.utils import snake_to_words, camel_to_snake
 
 
-PYTHON_TEST_RE = re.compile(r"^\+\s*def test(.*)\(", re.MULTILINE)
-
-
-def extract_messages_from_python_file_diff(diff):
-    matches = PYTHON_TEST_RE.findall(diff)
-    return (snake_to_words(camel_to_snake(match)) for match in matches)
+KNOWN_FILES = {}
 
 
 def extract_messages_from_diff(diff):
@@ -29,7 +24,6 @@ def _extract_messages_from_file_diff(diff):
 
 
 LANG_EXT = re.compile(r"^\+\+\+ .*\.(?P<ext>.*)$", re.MULTILINE)
-KNOWN_FILES = {"py": extract_messages_from_python_file_diff}
 
 
 def _get_extract_method_for_file_diff(diff):
@@ -40,3 +34,14 @@ def _get_extract_method_for_file_diff(diff):
 
 def _null_function(*args, **kwargs):
     return []
+
+
+PYTHON_TEST_RE = re.compile(r"^\+\s*def test(.*)\(", re.MULTILINE)
+
+
+def extract_messages_from_python_file_diff(diff):
+    matches = PYTHON_TEST_RE.findall(diff)
+    return (snake_to_words(camel_to_snake(match)) for match in matches)
+
+
+KNOWN_FILES["py"] = extract_messages_from_python_file_diff
