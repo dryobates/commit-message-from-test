@@ -71,12 +71,9 @@ def test_contains_test_definition_words_in_name(word):
     assert [word] == list(result)
 
 
-@pytest.mark.parametrize(
-    "test_name", ["snake_case", "snake__case", "_snake_case", "snake_case_"]
-)
-def test_changes_underlines_to_spaces_in_message(test_name):
+def test_changes_underlines_to_spaces_in_message():
     message = f"""\
-+def test{test_name}():
++def test_snake_case():
 +    pass"""
 
     result = extract_messages_from_python_file_diff(message)
@@ -84,10 +81,9 @@ def test_changes_underlines_to_spaces_in_message(test_name):
     assert ["snake case"] == list(result)
 
 
-@pytest.mark.parametrize("test_name", ["CamelCase", "camelCase"])
-def test_changes_camel_case_to_words(test_name):
+def test_changes_camel_case_to_words():
     message = f"""\
-+def test{test_name}():
++def testCamelCase():
 +    pass"""
 
     result = extract_messages_from_python_file_diff(message)
