@@ -1,14 +1,7 @@
-from cmft.extract_from_python import extract_messages_from_python_file_diff
-from cmft.extract_message import (
-    _extract_messages_from_file_diff,
-    _get_extract_method_for_file_diff,
-    _null_function,
-    _split_diff_into_separate_file_diffs,
-    extract_messages_from_diff,
-)
+from cmft.extract_message import extract_messages_from_diff
 
 
-def test_returns_empty_iterable_when_no_files_in_diff():
+def test_returns_no_messages_when_not_correct_diff():
     diff = "+ no file boundary"
 
     messages = extract_messages_from_diff(diff)
@@ -16,7 +9,7 @@ def test_returns_empty_iterable_when_no_files_in_diff():
     assert [] == list(messages)
 
 
-def test_returns_empty_iterable_when_empty_diff():
+def test_returns_no_messages_when_empty_diff():
     diff = ""
 
     messages = extract_messages_from_diff(diff)
@@ -24,7 +17,7 @@ def test_returns_empty_iterable_when_empty_diff():
     assert [] == list(messages)
 
 
-def test_returns_iterable_with_one_element_when_diff_with_one_file():
+def test_returns_no_messages_when_no_known_file_types():
     diff = """\
 diff --git a/file.txt b/file.txt
 new file mode 100644
@@ -34,67 +27,14 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    file_diffs = list(_split_diff_into_separate_file_diffs(diff))
+    messages = extract_messages_from_diff(diff)
 
-    assert 1 == len(file_diffs)
-    assert diff.replace("diff ", "") == file_diffs[0]
+    assert [] == list(messages)
 
 
-def test_returns_iterable_with_two_elements_when_diff_with_two_files():
+def test_returns_message_for_known_file_type():
     diff = """\
-diff --git a/file.txt b/file.txt
-new file mode 100644
-index 0000000..0d6170b
---- /dev/null
-+++ b/file.txt
-@@ -0,0 +1 @@
-+# test
-diff --git a/other.txt b/other.txt
-new file mode 100644
-index 0000000..0d6170b
---- a/other.txt
-+++ b/other.txt
-@@ -0,0 +1 @@
-+# test"""
-
-    file_diffs = list(_split_diff_into_separate_file_diffs(diff))
-
-    assert 2 == len(file_diffs)
-
-
-def test_returns_null_function_when_unknown_file_type():
-    diff = """\
---git a/file.txt b/file.txt
-new file mode 100644
-index 0000000..0d6170b
---- /dev/null
-+++ b/file.txt
-@@ -0,0 +1 @@
-+# test"""
-
-    method = _get_extract_method_for_file_diff(diff)
-
-    assert method is _null_function
-
-
-def test_returns_extract_method_for_known_file_type():
-    diff = """\
---git a/file.py b/file.py
-new file mode 100644
-index 0000000..0d6170b
---- /dev/null
-+++ b/file.py
-@@ -0,0 +1 @@
-+# test"""
-
-    method = _get_extract_method_for_file_diff(diff)
-
-    assert method is extract_messages_from_python_file_diff
-
-
-def test_returns_message_when_known_language():
-    diff = """\
---git a/file.py b/file.py
+diff --git a/file.py b/file.py
 new file mode 100644
 index 0000000..0d6170b
 --- /dev/null
@@ -103,12 +43,12 @@ index 0000000..0d6170b
 +def test_abc():
     pass"""
 
-    message = _extract_messages_from_file_diff(diff)
+    messages = extract_messages_from_diff(diff)
 
-    assert ["abc"] == list(message)
+    assert ["abc"] == list(messages)
 
 
-def test_returns_messages_for_known_files_from_diff():
+def test_returns_messages_for_all_known_file_types_from_diff():
     diff = """\
 diff --git a/file.py b/file.py
 new file mode 100644
@@ -137,20 +77,3 @@ index 0000000..0d6170b
     messages = extract_messages_from_diff(diff)
 
     assert ["def", "abc"] == list(messages)
-
-
-def test_returns_no_messages_when_no_known_file_types():
-    diff = """\
---git a/file.txt b/file.txt
-new file mode 100644
-index 0000000..0d6170b
---- /dev/null
-+++ b/file.txt
-@@ -0,0 +1 @@
-+# test"""
-
-    messages = extract_messages_from_diff(diff)
-
-    assert [] == list(messages)
-
-
