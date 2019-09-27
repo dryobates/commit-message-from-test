@@ -1,7 +1,7 @@
 from cmft.extract_message import extract_messages_from_python_file_diff
-from cmft.split_diff_into_files import (
+from cmft.cli import (
     extract_messages_from_file_diff,
-    extract_messages_from_diff,
+    _extract_messages_from_diff,
     get_extract_method_for_file_diff,
     null_function,
     split_diff_into_separate_file_diffs,
@@ -104,7 +104,7 @@ index 0000000..0d6170b
 
     message = extract_messages_from_file_diff(diff)
 
-    assert message == []
+    assert list(message) == []
 
 
 def test_returns_message_when_known_language():
@@ -149,6 +149,6 @@ index 0000000..0d6170b
 +def test_abc():
     pass"""
 
-    messages = extract_messages_from_diff(diff)
+    messages = _extract_messages_from_diff(diff)
 
     assert list(messages) == ["def", "abc"]
