@@ -1,6 +1,6 @@
-from cmft.extract_message import extract_message_from_python_file_diff
+from cmft.extract_message import extract_messages_from_python_file_diff
 from cmft.split_diff_into_files import (
-    extract_message_from_file_diff,
+    extract_messages_from_file_diff,
     extract_messages_from_diff,
     get_extract_method_for_file_diff,
     null_function,
@@ -89,7 +89,7 @@ index 0000000..0d6170b
 
     method = get_extract_method_for_file_diff(diff)
 
-    assert method is extract_message_from_python_file_diff
+    assert method is extract_messages_from_python_file_diff
 
 
 def test_returns_none_when_unknown_language():
@@ -102,7 +102,7 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    message = extract_message_from_file_diff(diff)
+    message = extract_messages_from_file_diff(diff)
 
     assert message == []
 
@@ -118,7 +118,7 @@ index 0000000..0d6170b
 +def test_abc():
     pass"""
 
-    message = extract_message_from_file_diff(diff)
+    message = extract_messages_from_file_diff(diff)
 
     assert message == ["abc"]
 

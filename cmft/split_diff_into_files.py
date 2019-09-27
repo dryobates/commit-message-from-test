@@ -1,16 +1,16 @@
 import re
 
-from cmft.extract_message import extract_message_from_python_file_diff
+from cmft.extract_message import extract_messages_from_python_file_diff
 
 LANG_EXT = re.compile(r"^\+\+\+ .*\.(?P<ext>.*)$", re.MULTILINE)
-KNOWN_FILES = {"py": extract_message_from_python_file_diff}
+KNOWN_FILES = {"py": extract_messages_from_python_file_diff}
 
 
 def extract_messages_from_diff(diff):
     files_diffs = split_diff_into_separate_file_diffs(diff)
     messages = []
     for file_diff in files_diffs:
-        messages.extend(extract_message_from_file_diff(file_diff))
+        messages.extend(extract_messages_from_file_diff(file_diff))
     return messages
 
 
@@ -19,7 +19,7 @@ def split_diff_into_separate_file_diffs(diff):
     return chunks[1:]
 
 
-def extract_message_from_file_diff(diff):
+def extract_messages_from_file_diff(diff):
     extract = get_extract_method_for_file_diff(diff)
     return extract(diff)
 
