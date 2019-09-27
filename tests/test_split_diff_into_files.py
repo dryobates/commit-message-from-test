@@ -120,7 +120,7 @@ index 0000000..0d6170b
 
     message = extract_messages_from_file_diff(diff)
 
-    assert message == ["abc"]
+    assert list(message) == ["abc"]
 
 
 def test_returns_messages_for_known_files_from_diff():

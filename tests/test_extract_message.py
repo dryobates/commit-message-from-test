@@ -10,7 +10,7 @@ def test_returns_message_based_on_test_name_when_one_test_found():
 
     result = extract_messages_from_python_file_diff(message)
 
-    assert ["name"] == result
+    assert ["name"] == list(result)
 
 
 def test_returns_all_possible_messages_based_on_tests_names():
@@ -23,7 +23,7 @@ def test_returns_all_possible_messages_based_on_tests_names():
 
     result = extract_messages_from_python_file_diff(message)
 
-    assert ["first", "second"] == result
+    assert ["first", "second"] == list(result)
 
 
 def test_returns_message_from_test_method():
@@ -34,7 +34,7 @@ def test_returns_message_from_test_method():
 
     result = extract_messages_from_python_file_diff(message)
 
-    assert ["name"] == result
+    assert ["name"] == list(result)
 
 
 def test_does_not_include_function_arguments_in_message():
@@ -44,7 +44,7 @@ def test_does_not_include_function_arguments_in_message():
 
     result = extract_messages_from_python_file_diff(message)
 
-    assert ["name"] == result
+    assert ["name"] == list(result)
 
 
 def test_does_not_output_commented_tests():
@@ -57,7 +57,7 @@ def test_does_not_output_commented_tests():
 
     result = extract_messages_from_python_file_diff(message)
 
-    assert ["second"] == result
+    assert ["second"] == list(result)
 
 
 @pytest.mark.parametrize("word", ["def", "test"])
@@ -68,7 +68,7 @@ def test_contains_test_definition_words_in_name(word):
 
     result = extract_messages_from_python_file_diff(message)
 
-    assert [word] == result
+    assert [word] == list(result)
 
 
 @pytest.mark.parametrize(
@@ -81,7 +81,7 @@ def test_changes_underlines_to_spaces_in_message(test_name):
 
     result = extract_messages_from_python_file_diff(message)
 
-    assert ["snake case"] == result
+    assert ["snake case"] == list(result)
 
 
 @pytest.mark.parametrize("test_name", ["CamelCase", "camelCase"])
@@ -92,4 +92,4 @@ def test_changes_camel_case_to_words(test_name):
 
     result = extract_messages_from_python_file_diff(message)
 
-    assert ["camel case"] == result
+    assert ["camel case"] == list(result)
