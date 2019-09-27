@@ -8,10 +8,9 @@ KNOWN_FILES = {"py": extract_messages_from_python_file_diff}
 
 def extract_messages_from_diff(diff):
     files_diffs = split_diff_into_separate_file_diffs(diff)
-    messages = []
     for file_diff in files_diffs:
-        messages.extend(extract_messages_from_file_diff(file_diff))
-    return messages
+        for message in extract_messages_from_file_diff(file_diff):
+            yield message
 
 
 def split_diff_into_separate_file_diffs(diff):

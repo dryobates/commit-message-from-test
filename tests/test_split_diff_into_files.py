@@ -151,4 +151,4 @@ index 0000000..0d6170b
 
     messages = extract_messages_from_diff(diff)
 
-    assert messages == ["def", "abc"]
+    assert list(messages) == ["def", "abc"]
