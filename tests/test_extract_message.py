@@ -8,20 +8,20 @@ from cmft.extract_message import (
 )
 
 
-def test_returns_empty_iterable_when_no_file_boundary_in_diff():
+def test_returns_empty_iterable_when_no_files_in_diff():
     diff = "+ no file boundary"
 
-    file_diffs = extract_messages_from_diff(diff)
+    messages = extract_messages_from_diff(diff)
 
-    assert [] == list(file_diffs)
+    assert [] == list(messages)
 
 
-def test_returns_empty_iterable_when_no_empty_diff():
+def test_returns_empty_iterable_when_empty_diff():
     diff = ""
 
-    file_diffs = list(_split_diff_into_separate_file_diffs(diff))
+    messages = extract_messages_from_diff(diff)
 
-    assert [] == file_diffs
+    assert [] == list(messages)
 
 
 def test_returns_iterable_with_one_element_when_diff_with_one_file():
