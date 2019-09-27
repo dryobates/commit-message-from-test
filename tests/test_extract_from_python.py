@@ -3,7 +3,7 @@ import pytest
 from cmft.extract_from_python import extract_messages_from_python_file_diff
 
 
-def test_returns_message_based_on_test_name_when_one_test_found():
+def test_returns_message_based_on_test_name():
     message = """\
 +def testname():
     pass"""
@@ -13,7 +13,7 @@ def test_returns_message_based_on_test_name_when_one_test_found():
     assert ["name"] == list(result)
 
 
-def test_returns_all_possible_messages_based_on_tests_names():
+def test_returns_all_possible_messages():
     message = """\
 +def testfirst():
     +pass
@@ -61,7 +61,7 @@ def test_does_not_output_commented_tests():
 
 
 @pytest.mark.parametrize("word", ["def", "test"])
-def test_contains_test_definition_words_in_name(word):
+def test_returns_message_for_tests_that_contain_test_definition_words_in_name(word):
     message = f"""\
 +def test{word}():
 +    pass"""
@@ -71,7 +71,7 @@ def test_contains_test_definition_words_in_name(word):
     assert [word] == list(result)
 
 
-def test_changes_underlines_to_spaces_in_message():
+def test_returns_message_with_underlines_changed_to_spaces():
     message = f"""\
 +def test_snake_case():
 +    pass"""
@@ -81,7 +81,7 @@ def test_changes_underlines_to_spaces_in_message():
     assert ["snake case"] == list(result)
 
 
-def test_changes_camel_case_to_words():
+def test_returns_message_with_camel_case_converted_to_words():
     message = f"""\
 +def testCamelCase():
 +    pass"""

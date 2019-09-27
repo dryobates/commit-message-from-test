@@ -1,19 +1,19 @@
+from cmft.extract_from_python import extract_messages_from_python_file_diff
 from cmft.extract_message import (
-    extract_messages_from_diff,
     _extract_messages_from_file_diff,
     _get_extract_method_for_file_diff,
     _null_function,
     _split_diff_into_separate_file_diffs,
+    extract_messages_from_diff,
 )
-from cmft.extract_from_python import extract_messages_from_python_file_diff
 
 
-def test_returns_empty_iterable_when_no_file_boundary_found():
+def test_returns_empty_iterable_when_no_file_boundary_in_diff():
     diff = "+ no file boundary"
 
-    file_diffs = list(_split_diff_into_separate_file_diffs(diff))
+    file_diffs = extract_messages_from_diff(diff)
 
-    assert [] == file_diffs
+    assert [] == list(file_diffs)
 
 
 def test_returns_empty_iterable_when_no_empty_diff():
