@@ -1,5 +1,5 @@
-from cmft.cli import (
-    _extract_messages_from_diff,
+from cmft.extract_message import (
+    extract_messages_from_diff,
     _extract_messages_from_file_diff,
     _get_extract_method_for_file_diff,
     _null_function,
@@ -149,6 +149,6 @@ index 0000000..0d6170b
 +def test_abc():
     pass"""
 
-    messages = _extract_messages_from_diff(diff)
+    messages = extract_messages_from_diff(diff)
 
     assert ["def", "abc"] == list(messages)
