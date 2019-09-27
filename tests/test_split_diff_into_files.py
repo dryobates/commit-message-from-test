@@ -1,17 +1,17 @@
 from cmft.extract_message import extract_messages_from_python_file_diff
 from cmft.cli import (
-    extract_messages_from_file_diff,
+    _extract_messages_from_file_diff,
     _extract_messages_from_diff,
-    get_extract_method_for_file_diff,
-    null_function,
-    split_diff_into_separate_file_diffs,
+    _get_extract_method_for_file_diff,
+    _null_function,
+    _split_diff_into_separate_file_diffs,
 )
 
 
 def test_returns_empty_iterable_when_no_file_boundary_found():
     diff = "+ no file boundary"
 
-    file_diffs = list(split_diff_into_separate_file_diffs(diff))
+    file_diffs = list(_split_diff_into_separate_file_diffs(diff))
 
     assert file_diffs == []
 
@@ -19,7 +19,7 @@ def test_returns_empty_iterable_when_no_file_boundary_found():
 def test_returns_empty_iterable_when_no_empty_diff():
     diff = ""
 
-    file_diffs = list(split_diff_into_separate_file_diffs(diff))
+    file_diffs = list(_split_diff_into_separate_file_diffs(diff))
 
     assert file_diffs == []
 
@@ -34,7 +34,7 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    file_diffs = list(split_diff_into_separate_file_diffs(diff))
+    file_diffs = list(_split_diff_into_separate_file_diffs(diff))
 
     assert len(file_diffs) == 1
     assert file_diffs[0] == diff.replace("diff ", "")
@@ -57,7 +57,7 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    file_diffs = list(split_diff_into_separate_file_diffs(diff))
+    file_diffs = list(_split_diff_into_separate_file_diffs(diff))
 
     assert len(file_diffs) == 2
 
@@ -72,9 +72,9 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    method = get_extract_method_for_file_diff(diff)
+    method = _get_extract_method_for_file_diff(diff)
 
-    assert method is null_function
+    assert method is _null_function
 
 
 def test_returns_extract_method_for_known_file_type():
@@ -87,7 +87,7 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    method = get_extract_method_for_file_diff(diff)
+    method = _get_extract_method_for_file_diff(diff)
 
     assert method is extract_messages_from_python_file_diff
 
@@ -102,7 +102,7 @@ index 0000000..0d6170b
 @@ -0,0 +1 @@
 +# test"""
 
-    message = extract_messages_from_file_diff(diff)
+    message = _extract_messages_from_file_diff(diff)
 
     assert list(message) == []
 
@@ -118,7 +118,7 @@ index 0000000..0d6170b
 +def test_abc():
     pass"""
 
-    message = extract_messages_from_file_diff(diff)
+    message = _extract_messages_from_file_diff(diff)
 
     assert list(message) == ["abc"]
 
