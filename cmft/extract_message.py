@@ -30,5 +30,5 @@ def _get_extract_method_for_file_diff(diff):
     return KNOWN_FILES.get(ext, _null_function)
 
 
-def _null_function(*args, **kwargs):
+def _null_function(diff):
     return []
