@@ -5,7 +5,7 @@ from cmft.extract_message import (
     _null_function,
     _split_diff_into_separate_file_diffs,
 )
-from cmft.extract_message import extract_messages_from_python_file_diff
+from cmft.extract_from_python import extract_messages_from_python_file_diff
 
 
 def test_returns_empty_iterable_when_no_file_boundary_found():

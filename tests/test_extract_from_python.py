@@ -1,6 +1,6 @@
 import pytest
 
-from cmft.extract_message import extract_messages_from_python_file_diff
+from cmft.extract_from_python import extract_messages_from_python_file_diff
 
 
 def test_returns_message_based_on_test_name_when_one_test_found():
