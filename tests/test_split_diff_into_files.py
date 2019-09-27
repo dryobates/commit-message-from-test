@@ -104,7 +104,7 @@ index 0000000..0d6170b
 
     message = extract_message_from_file_diff(diff)
 
-    assert message is None
+    assert message == []
 
 
 def test_returns_message_when_known_language():
@@ -120,7 +120,7 @@ index 0000000..0d6170b
 
     message = extract_message_from_file_diff(diff)
 
-    assert message == "abc"
+    assert message == ["abc"]
 
 
 def test_returns_messages_for_known_files_from_diff():

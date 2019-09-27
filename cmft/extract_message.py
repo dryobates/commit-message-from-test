@@ -7,8 +7,8 @@ ALL_CAP_RE = re.compile("([a-z0-9])([A-Z])")
 
 
 def extract_message_from_python_file_diff(diff):
-    match = TEST_RE.search(diff)
-    return snake_to_words(camel_to_snake(match.group(1))) if match else None
+    matches = TEST_RE.findall(diff)
+    return [snake_to_words(camel_to_snake(match)) for match in matches]
 
 
 def camel_to_snake(message):
