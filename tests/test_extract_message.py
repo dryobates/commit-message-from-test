@@ -13,7 +13,7 @@ def test_returns_message_based_on_test_name_when_one_test_found():
     assert "name" == result
 
 
-def test_returns_message_based_on_first_found_test_name_when_many_tests_found():
+def test_returns_all_possible_messages_based_on_tests_names():
     message = """\
 +def testfirst():
     +pass
@@ -23,7 +23,7 @@ def test_returns_message_based_on_first_found_test_name_when_many_tests_found():
 
     result = extract_message_from_python_file_diff(message)
 
-    assert "first" == result
+    assert ["first", "second"] == result
 
 
 def test_returns_message_from_test_method():
