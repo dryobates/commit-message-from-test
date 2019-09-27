@@ -92,21 +92,6 @@ index 0000000..0d6170b
     assert method is extract_messages_from_python_file_diff
 
 
-def test_returns_none_when_unknown_language():
-    diff = """\
---git a/file.txt b/file.txt
-new file mode 100644
-index 0000000..0d6170b
---- /dev/null
-+++ b/file.txt
-@@ -0,0 +1 @@
-+# test"""
-
-    message = _extract_messages_from_file_diff(diff)
-
-    assert [] == list(message)
-
-
 def test_returns_message_when_known_language():
     diff = """\
 --git a/file.py b/file.py
@@ -152,3 +137,20 @@ index 0000000..0d6170b
     messages = extract_messages_from_diff(diff)
 
     assert ["def", "abc"] == list(messages)
+
+
+def test_returns_no_messages_when_no_known_file_types():
+    diff = """\
+--git a/file.txt b/file.txt
+new file mode 100644
+index 0000000..0d6170b
+--- /dev/null
++++ b/file.txt
+@@ -0,0 +1 @@
++# test"""
+
+    messages = extract_messages_from_diff(diff)
+
+    assert [] == list(messages)
+
+
