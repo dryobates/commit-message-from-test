@@ -73,6 +73,21 @@ def test_second():
         assert "first\nsecond" == result.output
 
 
+def test_outputs_no_message_when_no_known_languages(runner):
+    first_file_name = "test_first_example.txt"
+    first_file_content = """\
+def test_first():
+    pass"""
+    with runner.isolated_filesystem():
+        _write_test_file_content_in_repo(first_file_content, first_file_name)
+        run(f"git add {first_file_name}", shell=True)
+
+        result = runner.invoke(main)
+
+        assert result.exit_code == 0
+        assert "" == result.output
+
+
 # - runs git diff for given directory/file when path is given as option
 # - recognize different languages
 

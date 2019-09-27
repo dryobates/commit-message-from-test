@@ -1,11 +1,11 @@
-from cmft.extract_message import extract_messages_from_python_file_diff
 from cmft.cli import (
-    _extract_messages_from_file_diff,
     _extract_messages_from_diff,
+    _extract_messages_from_file_diff,
     _get_extract_method_for_file_diff,
     _null_function,
     _split_diff_into_separate_file_diffs,
 )
+from cmft.extract_message import extract_messages_from_python_file_diff
 
 
 def test_returns_empty_iterable_when_no_file_boundary_found():
@@ -13,7 +13,7 @@ def test_returns_empty_iterable_when_no_file_boundary_found():
 
     file_diffs = list(_split_diff_into_separate_file_diffs(diff))
 
-    assert file_diffs == []
+    assert [] == file_diffs
 
 
 def test_returns_empty_iterable_when_no_empty_diff():
@@ -21,7 +21,7 @@ def test_returns_empty_iterable_when_no_empty_diff():
 
     file_diffs = list(_split_diff_into_separate_file_diffs(diff))
 
-    assert file_diffs == []
+    assert [] == file_diffs
 
 
 def test_returns_iterable_with_one_element_when_diff_with_one_file():
@@ -36,8 +36,8 @@ index 0000000..0d6170b
 
     file_diffs = list(_split_diff_into_separate_file_diffs(diff))
 
-    assert len(file_diffs) == 1
-    assert file_diffs[0] == diff.replace("diff ", "")
+    assert 1 == len(file_diffs)
+    assert diff.replace("diff ", "") == file_diffs[0]
 
 
 def test_returns_iterable_with_two_elements_when_diff_with_two_files():
@@ -59,7 +59,7 @@ index 0000000..0d6170b
 
     file_diffs = list(_split_diff_into_separate_file_diffs(diff))
 
-    assert len(file_diffs) == 2
+    assert 2 == len(file_diffs)
 
 
 def test_returns_null_function_when_unknown_file_type():
@@ -104,7 +104,7 @@ index 0000000..0d6170b
 
     message = _extract_messages_from_file_diff(diff)
 
-    assert list(message) == []
+    assert [] == list(message)
 
 
 def test_returns_message_when_known_language():
@@ -120,7 +120,7 @@ index 0000000..0d6170b
 
     message = _extract_messages_from_file_diff(diff)
 
-    assert list(message) == ["abc"]
+    assert ["abc"] == list(message)
 
 
 def test_returns_messages_for_known_files_from_diff():
@@ -151,4 +151,4 @@ index 0000000..0d6170b
 
     messages = _extract_messages_from_diff(diff)
 
-    assert list(messages) == ["def", "abc"]
+    assert ["def", "abc"] == list(messages)
