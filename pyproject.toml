@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cmft"
-version = "0.0.0"
+version = "0.1.0"
 description = ""
 license = "MIT"
 authors = ["dryobates <jakub.stolarski@gmail.com>"]
