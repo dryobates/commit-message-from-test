@@ -1,17 +1,11 @@
-# commit-message-from-test
+# commit message from test
 
 [![Wheel Status](https://img.shields.io/pypi/wheel/cmft.svg)](https://pypi.python.org/pypi/cmft/)
-
 [![Python versions](https://img.shields.io/pypi/pyversions/cmft.svg)](https://pypi.python.org/pypi/cmft/)
-
 [![Latest Version](https://img.shields.io/pypi/v/cmft.svg)](https://pypi.python.org/pypi/cmft/)
-
 [![License](https://img.shields.io/pypi/l/cmft.svg)](https://pypi.python.org/pypi/cmft/)
-
 [![Build status](https://travis-ci.org/dryobates/cmft.svg?branch=master)](https://travis-ci.org/dryobates/cmft)
-
 [![Coverage](https://coveralls.io/repos/dryobates/cmft/badge.svg)](https://coveralls.io/r/dryobates/cmft)
-
 [![Code style](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/ambv/black)
 
 commit-message-from-test (cmft in short) is tiny filter program to extract possible commit messages from changed files based on test names.
