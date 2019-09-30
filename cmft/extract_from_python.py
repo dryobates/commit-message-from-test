@@ -1,6 +1,6 @@
 import re
-from cmft.utils import snake_to_words, camel_to_snake
 
+from cmft.utils import camel_to_snake, snake_to_words
 
 PYTHON_TEST_RE = re.compile(r"^\+\s*def test(.*)\(", re.MULTILINE)
 
