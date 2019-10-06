@@ -11,7 +11,18 @@ def test_returns_message_based_on_test_name():
 
     assert ["name"] == list(result)
 
-# def test_returns_message_based_on_test_name_declared_with_function_keyword():
+
+def test_returns_message_based_on_test_name_declared_with_function_keyword():
+    message = """\
++function testname {
++    assertTrue 1
++}"""
+
+    result = extract_messages_from_shell_file_diff(message)
+
+    assert ["name"] == list(result)
+
+
 # def test_returns_all_possible_messages():
 # def test_does_not_output_commented_tests():
 # def test_returns_message_for_tests_that_contain_test_definition_words_in_name():
