@@ -2,7 +2,7 @@ import re
 
 SHELL_TEST_RE = re.compile(
     r"""
-    ^\+[^t]*(?:
+    ^\+\s*(?:
         test(.*)\(               # function defined with "()": test_some_name() {
         | function\s*test(.*)\b  # function defined with "function": function test_some_name {
     )
