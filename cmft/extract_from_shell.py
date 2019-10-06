@@ -12,7 +12,8 @@ SHELL_TEST_RE = re.compile(
 
 
 def extract_messages_from_shell_file_diff(diff):
-    matches = SHELL_TEST_RE.findall(diff)
+    matches = SHELL_TEST_RE.search(diff)
+    matches = [matches.groups()] if matches else []
     return (
         parens_function or keyword_function
         for parens_function, keyword_function in matches
