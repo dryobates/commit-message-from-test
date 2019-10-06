@@ -4,7 +4,7 @@ SHELL_TEST_RE = re.compile(
     r"""
     ^\+\s*(?:
         test(.*)\(                  # function defined with "()": test_some_name() {
-        | function\s*test([^\s]*)   # function defined with "function": function test_some_name {
+        | function\s*test(.*)\b   # function defined with "function": function test_some_name {
     )
 """,
     re.MULTILINE | re.VERBOSE,
