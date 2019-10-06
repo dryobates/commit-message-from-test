@@ -49,7 +49,21 @@ def test_returns_all_possible_messages():
     assert ["first", "second"] == list(result)
 
 
-# def test_does_not_output_commented_tests():
+def test_does_not_output_commented_tests():
+    message = """\
++# testfirst() {
++#    assertTrue 1
++# }
++
++testsecond() {
++    assertTrue 1
++}"""
+
+    result = extract_messages_from_shell_file_diff(message)
+
+    assert ["second"] == list(result)
+
+
 # def test_returns_message_for_tests_that_contain_test_definition_words_in_name():
 # def test_returns_message_with_underlines_changed_to_spaces():
 # def test_returns_message_with_camel_case_converted_to_words():
